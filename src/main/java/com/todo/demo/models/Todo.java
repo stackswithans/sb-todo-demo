@@ -1,5 +1,8 @@
 package com.todo.demo.models;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document("todos")
 public class Todo {
     private String desc;
     private String place;

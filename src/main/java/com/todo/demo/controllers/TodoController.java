@@ -2,14 +2,30 @@ package com.todo.demo.controllers;
 
 
 import com.todo.demo.models.Todo;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.todo.demo.repo.TodoRepo;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class TodoController {
 
+    private TodoRepo todoRepo;
+
+    public TodoController(TodoRepo todoRepo){
+        this.todoRepo = todoRepo;
+    }
+
     @GetMapping("/")
-    public Todo getTodo(){
-        return new Todo("Do something", "little india", "26-01-2021");
+    public List<Todo> getTodo(){
+        return todoRepo.findAll();
+    }
+
+    @PostMapping("/todos")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Todo newTodo(@RequestBody Todo todo){
+        todoRepo.save(todo);
+        return todo;
     }
 }
