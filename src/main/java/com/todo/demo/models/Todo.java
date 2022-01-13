@@ -20,8 +20,8 @@ public class Todo {
         this.done = done;
     }
 
-    public ObjectId getId() {
-        return id;
+    public String getId() {
+        return id.toHexString();
     }
 
     public String getDesc() {
