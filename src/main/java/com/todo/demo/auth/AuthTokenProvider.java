@@ -18,10 +18,12 @@ public class AuthTokenProvider implements AuthenticationProvider {
     public Authentication authenticate(Authentication auth) throws AuthenticationException {
         TokenAuthentication tok = (TokenAuthentication) auth;
         var tokObj = tokens.findById(tok.getPrincipal());
+        System.out.println(tokObj.isEmpty());
         if(tokObj.isEmpty()){
             throw new BadCredentialsException("Invalid API Key.");
         }
         var token = tokObj.get();
+        System.out.println(token.getToken());
         User user = token.getUser();
         return new TokenAuthentication(token.getToken(), true, user);
     }

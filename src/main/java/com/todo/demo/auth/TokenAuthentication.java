@@ -10,7 +10,7 @@ import java.util.List;
 
 public class TokenAuthentication implements Authentication {
     private String authToken;
-    private boolean isValid;
+    private final boolean isValid;
     private User user = null;
 
     public TokenAuthentication(String authToken, boolean isValid) {
@@ -50,7 +50,11 @@ public class TokenAuthentication implements Authentication {
     }
 
     @Override
-    public void setAuthenticated(boolean isAuthenticated) throws IllegalArgumentException {}
+    public void setAuthenticated(boolean isAuthenticated) throws IllegalArgumentException {
+        if(isAuthenticated){
+            throw new IllegalArgumentException();
+        }
+    }
 
     @Override
     public String getName() {
